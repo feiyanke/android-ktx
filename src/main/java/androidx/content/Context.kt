@@ -17,7 +17,9 @@
 package androidx.content
 
 import android.content.Context
+import android.content.pm.PackageInfo
 import android.content.res.TypedArray
+import android.graphics.drawable.Drawable
 import android.support.annotation.AttrRes
 import android.support.annotation.RequiresApi
 import android.support.annotation.StyleRes
@@ -91,3 +93,13 @@ inline fun Context.withStyledAttributes(
         typedArray.recycle()
     }
 }
+
+inline fun Context.getPackageInfo(flag:Int = 0): PackageInfo = packageManager.getPackageInfo(packageName, flag)
+
+inline fun Context.getIcon(): Drawable = applicationInfo.loadIcon(packageManager)
+
+inline fun Context.getName(): String = applicationInfo.loadLabel(packageManager).toString()
+
+inline fun Context.getVersionName(): String = getPackageInfo().versionName
+
+inline fun Context.getVersionCode(): Int = getPackageInfo().versionCode
